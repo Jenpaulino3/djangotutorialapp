@@ -23,9 +23,9 @@ class DetailView(generic.DetailView):
 	model = Question
 	template_name = 'polls/detail.html'
 
-	def detail(request, question_id):
-		question = get_object_or_404(Question, pk=question_id)
-		return render(request, 'polls/detail.html', {'question': question})
+def detail(request, question_id):
+	question = get_object_or_404(Question, pk=question_id)
+	return render(request, 'polls/detail.html', {'question': question})
 
 	def get_queryset(self):
 		"""Excludes any questions that aren't published yet."""
@@ -53,3 +53,7 @@ def vote(request, question_id):
 		selected_choice.save()
 		# Always return an HttpResponseRedirect after successfully dealing with POST data. This prevents data from being posted twice if a user hits the Back button.
 		return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
+
+def results (request, question_id):
+	question = get_object_or_404(Question, pk=question_id)
+	return render(request, 'polls/results.html', {'question': question})
